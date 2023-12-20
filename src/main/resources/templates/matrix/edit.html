@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{matrix.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{matrix.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/matrices}" class="btn btn-secondary">[[#{matrix.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('matrix')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='matrix', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='matrix', field='score', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='matrix', field='answers', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='matrix', field='solutions', type='select')}" />
+                <input type="submit" th:value="#{matrix.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

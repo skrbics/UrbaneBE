@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{field.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{field.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/fields/add}" class="btn btn-primary ms-2">[[#{field.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${fields.empty}">[[#{field.list.empty}]]</div>
+            <div th:if="${!fields.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{field.id.label}]]</th>
+                            <th scope="col">[[#{field.name.label}]]</th>
+                            <th scope="col">[[#{field.lat.label}]]</th>
+                            <th scope="col">[[#{field.longg.label}]]</th>
+                            <th scope="col">[[#{field.cropType.label}]]</th>
+                            <th scope="col">[[#{field.hbm.label}]]</th>
+                            <th scope="col">[[#{field.createdAt.label}]]</th>
+                            <th scope="col">[[#{field.users.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="field : ${fields}">
+                            <td>[[${field.id}]]</td>
+                            <td>[[${field.name}]]</td>
+                            <td>[[${field.lat}]]</td>
+                            <td>[[${field.longg}]]</td>
+                            <td>[[${field.cropType}]]</td>
+                            <td>[[${field.hbm}]]</td>
+                            <td>[[${field.createdAt}]]</td>
+                            <td>[[${field.users}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/fields/edit/{id}(id=${field.id})}" class="btn btn-sm btn-secondary">[[#{field.list.edit}]]</a>
+                                    <form th:action="@{/fields/delete/{id}(id=${field.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{field.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{questionCategory.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{questionCategory.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/questionCategories/add}" class="btn btn-primary ms-2">[[#{questionCategory.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${questionCategories.empty}">[[#{questionCategory.list.empty}]]</div>
+            <div th:if="${!questionCategories.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{questionCategory.id.label}]]</th>
+                            <th scope="col">[[#{questionCategory.category.label}]]</th>
+                            <th scope="col">[[#{questionCategory.order.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="questionCategory : ${questionCategories}">
+                            <td>[[${questionCategory.id}]]</td>
+                            <td>[[${questionCategory.category}]]</td>
+                            <td>[[${questionCategory.order}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/questionCategories/edit/{id}(id=${questionCategory.id})}" class="btn btn-sm btn-secondary">[[#{questionCategory.list.edit}]]</a>
+                                    <form th:action="@{/questionCategories/delete/{id}(id=${questionCategory.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{questionCategory.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
